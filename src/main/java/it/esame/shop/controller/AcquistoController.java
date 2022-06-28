@@ -30,7 +30,7 @@ public class AcquistoController {
         }
     }//crea
 
-    @GetMapping("/{user}")
+    @GetMapping("/{utente}")
     public List<Ordine> getOrdini(@RequestBody Utente utente){
         try{
             return acquistoService.getByUtente(utente);

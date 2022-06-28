@@ -1,7 +1,10 @@
 spring:
+  application:
+    name: E-Commerce
   datasource:
     username: 'root'
+    driver-class-name : com.mysql.cj.jdbc.Driver
     password: 'CalM4t23@'
-    url: jdbc:mysql://localhost:3306/ecommerce
+    url: jdbc:mysql://localhost:3306/ecommerce?serverTimezone=UTC
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
