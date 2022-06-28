@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    username: 'root'
+    password: 'CalM4t23@'
+    url: jdbc:mysql://localhost:3306/ecommerce
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
