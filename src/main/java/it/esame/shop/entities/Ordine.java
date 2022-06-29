@@ -21,6 +21,7 @@ public class Ordine  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idOrdine", nullable = false)
     private int idOrdine;
 
     @Basic

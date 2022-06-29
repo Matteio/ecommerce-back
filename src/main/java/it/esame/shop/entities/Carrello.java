@@ -1,10 +1,9 @@
 package it.esame.shop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 @Getter
@@ -17,8 +16,11 @@ public class Carrello {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idCarrello", nullable = false)
     private int idCarrello;
 
+    @Basic
+    @Column(name="quantita",nullable = true)
     private int quantita;
 
     @ManyToOne(cascade = CascadeType.ALL)

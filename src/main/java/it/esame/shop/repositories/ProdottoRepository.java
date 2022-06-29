@@ -13,7 +13,7 @@ public interface ProdottoRepository extends JpaRepository<Prodotto, Integer> {
 
     Page<Prodotto> findByNomeContaining(String nome, Pageable pageable);
     List<Prodotto> findByNome(String nome);
-    List<Prodotto> findByBarCode(String barC);
-    boolean existsByBarCode(String barC);
+    //List<Prodotto> findByBarCode(String barCode);
+    //boolean existsByBarCode(String barCode);
 
 }//ProdottoRepository

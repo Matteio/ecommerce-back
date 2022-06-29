@@ -18,7 +18,7 @@ public class ProfiloController {
     @Autowired
     private ProfiloService profiloService;
 
-    @PostMapping
+    @PostMapping("/crea")
     public ResponseEntity crea(@RequestBody Utente utente){
         try{
             Utente daAgg = profiloService.registraUtente(utente);

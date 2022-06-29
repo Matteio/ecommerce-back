@@ -18,7 +18,7 @@ public class ProdottoController {
     @Autowired
     private ProdottoService prodottoService;
 
-    @GetMapping
+    @GetMapping("/tutti")
     public ResponseEntity getProdotti(@RequestParam(required = false,defaultValue = "0") int pag,
                                       @RequestParam(required = false,defaultValue = "7") int limite,
                                       @RequestParam(required = false)  String nomeProd,

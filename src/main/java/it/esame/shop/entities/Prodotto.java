@@ -1,13 +1,12 @@
 package it.esame.shop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -20,18 +19,30 @@ public class Prodotto  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idProdotto", nullable = false)
     private int idProdotto;
 
-    private String nome,
-    barCode,
-    descrizione;
+    @Basic
+    @Column(name="nome",nullable = true, length = 45)
+    private String nome;
+    /*@Basic
+    @Column(name="barCode",nullable = true, length = 45)
+    private String barCode;
+     */
+    @Basic
+    @Column(name="descrizione",nullable = true, length = 45)
+    private String descrizione;
+    @Basic
+    @Column(name="prezzo",nullable = true)
     private Double prezzo;
+    @Basic
+    @Column(name="disponibilita",nullable = true)
     private int disponibilita;
 
-    @Version
+   /* @Version
     @JsonIgnore
     private long version;
-
+    */
     @OneToMany(targetEntity = Carrello.class, mappedBy="prodotto", cascade = CascadeType.MERGE)
     @JsonIgnore
     @ToString.Exclude

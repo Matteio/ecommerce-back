@@ -18,10 +18,11 @@ public class ProdottoService {
 
     @Transactional(readOnly = false)
     public Prodotto aggiungiProdotto(Prodotto prodotto) throws BarCodeAlreadyExistException{
-        if(prodotto.getBarCode() != null &&
-        prodottoRepository.existsByBarCode(prodotto.getBarCode())){
+        /*if(prodottoRepository.existsById(prodotto.getIdProdotto())){
             throw new BarCodeAlreadyExistException();
         }
+
+         */
         return prodottoRepository.save(prodotto);
     }//aggiungiProdotto
 
