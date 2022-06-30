@@ -8,6 +8,7 @@ import it.esame.shop.support.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -22,6 +23,7 @@ public class AcquistoController {
 
     @PostMapping
     @ResponseStatus(code= HttpStatus.OK)
+    @PreAuthorize("hasAuthority('Cliente')")
     public ResponseEntity crea(@RequestBody Ordine ordine){
         try{
             return new ResponseEntity<>(acquistoService.aggiungiAcquisto(ordine), HttpStatus.OK);

@@ -1,4 +1,10 @@
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwr-set-uri: http://localhost:8080/auth/realms/shop/protocol/openid-connect/certs
+          issuer-uri: http://localhost:8080/auth/realms/shop
   application:
     name: E-Commerce
   datasource:
@@ -8,6 +14,17 @@ spring:
     url: jdbc:mysql://localhost:3306/ecommerce?serverTimezone=UTC
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
+
+keycloak:
+  resource: shop
+
+logging:
+  level:
+    it:
+      matt&i: DEBUG
+    org:
+      springframework: INFO
+
 #server:
   #ssl:
   #key-store-password: password_certificate

@@ -1,4 +1,4 @@
-/*package it.esame.shop.configurations;
+package it.esame.shop.configurations;
 
 
 import it.esame.shop.support.authentication.JwtAuthenticationConverter;
@@ -23,13 +23,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/check/simple").permitAll()
-                .antMatchers("/users/**").permitAll()
-                .antMatchers("/products/**").permitAll()
-                .antMatchers("/purchases/**").permitAll()
+                //.antMatchers("/check/simple").permitAll()
+                .antMatchers("/utenti/**").permitAll()
+                .antMatchers("/prodotti/**").permitAll()
+                .antMatchers("/acquisti/**").permitAll()
                 .anyRequest().authenticated().and().oauth2ResourceServer().jwt().jwtAuthenticationConverter(new JwtAuthenticationConverter());
     }
 
+    /*
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -44,8 +45,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", configuration);
         return new CorsFilter(source);
     }
+     */
 
 
 }
 
- */
+

@@ -1,4 +1,4 @@
-/*package it.esame.shop.support.authentication;
+package it.esame.shop.support.authentication;
 
 
 import org.springframework.beans.factory.annotation.Value;
@@ -33,4 +33,3 @@ public class JwtAuthenticationConverter implements Converter<Jwt, AbstractAuthen
 
 }
 
- */

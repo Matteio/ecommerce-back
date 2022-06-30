@@ -1,4 +1,4 @@
-/*
+
 package it.esame.shop.support.authentication;
 
 
@@ -50,4 +50,3 @@ public class Utils {
 
 }
 
- */

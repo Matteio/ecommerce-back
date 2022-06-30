@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,6 +32,7 @@ public class ProdottoController {
         }
     }//getProdotti
 
+    @PreAuthorize("hasAuthority('Venditore')")
     @PostMapping("/add")
     public ResponseEntity aggiungiProdotto(@RequestBody Prodotto prodotto){
         try{
@@ -41,6 +43,7 @@ public class ProdottoController {
         }
     }//aggiungiProdotto
 
+    @PreAuthorize("hasAuthority('Venditore')")
     @PutMapping("/edit")
     public ResponseEntity modificaProdotto(@RequestBody Prodotto prodotto){
         try{
@@ -55,6 +58,7 @@ public class ProdottoController {
         }
     }//modificaProdotto
 
+    @PreAuthorize("hasAuthority('Venditore')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity eliminaProdotto(@PathVariable int id){
         try{
