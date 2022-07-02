@@ -3,6 +3,7 @@ package it.esame.shop.services;
 import it.esame.shop.entities.Utente;
 import it.esame.shop.repositories.UtenteRepository;
 import it.esame.shop.support.exceptions.MailUserAlreadyExistsException;
+import it.esame.shop.support.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -21,11 +22,18 @@ public class ProfiloService {
         if(utenteRepository.existsByEmail(utente.getEmail()))
             throw new MailUserAlreadyExistsException();
         return utenteRepository.save(utente);
-    }//creaUtente
+    }//registraUtente
+
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    public Utente login(Utente utente) throws UserNotFoundException{
+        if(!utenteRepository.existsByEmail(utente.getEmail()))
+            throw new UserNotFoundException();
+        return utenteRepository.findByEmail(utente.getEmail());
+    }//login
 
     @Transactional(readOnly = true)
     public List<Utente> getAllUtenti(){
         return utenteRepository.findAll();
-    }
+    }//getAllUtenti
 
 }

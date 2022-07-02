@@ -25,11 +25,11 @@ logging:
     org:
       springframework: INFO
 
-#server:
+server:
   #ssl:
   #key-store-password: password_certificate
   #key-store-type: PKCS12
   #key-store: /home/debian/ssl-cert/certificate.p12
- # compression:
-  #  enabled: 'true'
-  #port: '8080'
+  compression:
+    enabled: 'true'
+  port: '8080'
