@@ -19,14 +19,14 @@ public class Utente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idUtente", nullable = false)
-    private int idUtente;
+    @Column(name= "id_utente", nullable = false)
+    private int idutente;
 
-    @Basic
+    /*@Basic
     @Column(name="codice",nullable = true, length = 45)
-    private String codice;
+    private String codice;*/
     @Basic
-    @Column(name="nome",nullable = true, length = 45)
+    @Column(name="nome", length = 45)
     private String nome;
     @Basic
     @Column(name="cognome",nullable = true, length = 45)
@@ -34,9 +34,10 @@ public class Utente {
     @Basic
     @Column(name="telefono",nullable = true, length = 45)
     private String telefono;
-    @Basic
+    /*@Basic
     @Column(name="email",nullable = true, length = 45)
     private String email;
+     */
     @Basic
     @Column(name="indirizzo",nullable = true, length = 45)
     private String indirizzo;

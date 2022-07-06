@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 @Service
@@ -42,7 +41,7 @@ public class AcquistoService {
 
     @Transactional
     public List<Ordine> getByUtente(Utente utente) throws UserNotFoundException{
-        if(!utenteRepository.existsById(utente.getIdUtente()))
+        if(!utenteRepository.existsById(utente.getIdutente()))
             throw new UserNotFoundException();
         return ordineRepository.findByUtente(utente);
     }

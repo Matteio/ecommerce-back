@@ -1,7 +1,7 @@
 spring:
   security:
     oauth2:
-      resourceserver:
+     resourceserver:
         jwt:
           jwr-set-uri: http://localhost:8080/auth/realms/shop/protocol/openid-connect/certs
           issuer-uri: http://localhost:8080/auth/realms/shop
@@ -11,12 +11,19 @@ spring:
     username: 'root'
     driver-class-name : com.mysql.cj.jdbc.Driver
     password: 'CalM4t23@'
-    url: jdbc:mysql://localhost:3306/ecommerce?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/ecommerce?serverTimezone=UTC&useSSL=false
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
 
+#keycloak:
+  #resource: shop
+  #realm: shop
+
 keycloak:
+  realm: shop
+  auth-server-url: http://localhost:8080/auth
   resource: shop
+  #bearer-only: true
 
 logging:
   level:
@@ -26,10 +33,6 @@ logging:
       springframework: INFO
 
 server:
-  #ssl:
-  #key-store-password: password_certificate
-  #key-store-type: PKCS12
-  #key-store: /home/debian/ssl-cert/certificate.p12
   compression:
     enabled: 'true'
-  port: '8080'
+  port: '8000'

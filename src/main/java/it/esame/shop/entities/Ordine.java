@@ -7,7 +7,6 @@ import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -21,8 +20,8 @@ public class Ordine  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idOrdine", nullable = false)
-    private int idOrdine;
+    @Column(name= "id_ordine", nullable = false)
+    private int idordine;
 
     @Basic
     @CreationTimestamp

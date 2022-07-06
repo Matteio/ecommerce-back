@@ -16,15 +16,15 @@ import java.util.stream.Collectors;
 
 
 public class JwtAuthenticationConverter implements Converter<Jwt, AbstractAuthenticationToken> {
-    @Value("${keycloak.resource}")
-    private String CLIENT_NAME;
+    @Value("shop")
+  //  private String CLIENT_NAME;
 
 
     @Override
     @SuppressWarnings("unchecked")
     public AbstractAuthenticationToken convert(final Jwt source) {
         Map<String, Object> resourceAccess = source.getClaim("resource_access");
-        Map<String, Object> resource = (Map<String, Object>) resourceAccess.get(CLIENT_NAME);
+        Map<String, Object> resource = (Map<String, Object>) resourceAccess.get("shop-client");
         Collection<String> resourceRoles = (Collection<String>) resource.get("roles");
         Set<GrantedAuthority> authorities = resourceRoles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
         return new JwtAuthenticationToken(source, authorities);

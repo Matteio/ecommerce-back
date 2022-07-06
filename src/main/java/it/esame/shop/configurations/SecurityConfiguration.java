@@ -24,13 +24,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 //.antMatchers("/check/simple").permitAll()
-                .antMatchers("/utenti/**").permitAll()
-                .antMatchers("/prodotti/**").permitAll()
-                .antMatchers("/acquisti/**").permitAll()
+                .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+                //.antMatchers(HttpMethod.OPTIONS,"/prodotti/**").permitAll()
+                //.antMatchers(HttpMethod.OPTIONS,"/acquisti/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/r").permitAll()
+                .antMatchers(HttpMethod.GET,"/prodotti/**").permitAll()
                 .anyRequest().authenticated().and().oauth2ResourceServer().jwt().jwtAuthenticationConverter(new JwtAuthenticationConverter());
     }
 
-    /*
+
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -45,9 +47,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", configuration);
         return new CorsFilter(source);
     }
-     */
+
 
 
 }
+
+
+
+
 
 

@@ -1,4 +1,6 @@
+
 package it.esame.shop.controller;
+
 
 import it.esame.shop.entities.Prodotto;
 import it.esame.shop.services.ProdottoService;
@@ -12,6 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
+import java.util.List;
+
 @RestController
 @RequestMapping("/prodotti")
 public class ProdottoController {
@@ -19,21 +24,32 @@ public class ProdottoController {
     @Autowired
     private ProdottoService prodottoService;
 
-    @GetMapping("/tutti")
-    public ResponseEntity getProdotti(@RequestParam(required = false,defaultValue = "0") int pag,
-                                      @RequestParam(required = false,defaultValue = "7") int limite,
-                                      @RequestParam(required = false)  String nomeProd,
-                                      @RequestParam(required = false) Sort.Direction sort){
-        try{
-            Page<Prodotto> prodottoPage = prodottoService.getFiltri(pag,limite,nomeProd,sort);
-            return new ResponseEntity<>(new ResponseMessage("Prodotti restituiti correttamente"),HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity<>("GET ERROR", HttpStatus.BAD_REQUEST);
+    @GetMapping("/getAll/paged")
+    public ResponseEntity getAll(@RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber,
+                                 @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                 @RequestParam(value = "sortBy", defaultValue = "id") String sortBy){
+        List<Prodotto> result = prodottoService.mostraListaProdotti(pageNumber,pageSize,sortBy);
+        if(result.size()<=0){
+            return new ResponseEntity<>(new ResponseMessage("Nessun risultato!"), HttpStatus.OK);
         }
-    }//getProdotti
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }//getAll paged
 
-    @PreAuthorize("hasAuthority('Venditore')")
-    @PostMapping("/add")
+    @GetMapping("/getByName")
+    public ResponseEntity getByNome (@RequestParam(required = false)String nome){
+        List<Prodotto> result=prodottoService.mostraProdottiByNome(nome);
+        if(result.size()<=0)
+            return new ResponseEntity<>(new ResponseMessage("Nessun risultato!"), HttpStatus.OK);
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }//getByNome
+
+    @GetMapping("/getAll")
+    public List<Prodotto> getAll(){
+        return prodottoService.mostraTutti();
+    }//getAll
+
+    //@PreAuthorize("hasAuthority('admin')")
+    @PostMapping("/admin/add")
     public ResponseEntity aggiungiProdotto(@RequestBody Prodotto prodotto){
         try{
             Prodotto prodAgg = prodottoService.aggiungiProdotto(prodotto);
@@ -43,8 +59,8 @@ public class ProdottoController {
         }
     }//aggiungiProdotto
 
-    @PreAuthorize("hasAuthority('Venditore')")
-    @PutMapping("/edit")
+    //@PreAuthorize("hasAuthority('admin')")
+    @PutMapping("/admin/edit")
     public ResponseEntity modificaProdotto(@RequestBody Prodotto prodotto){
         try{
             Prodotto prodMod = prodottoService.modificaProdotto(prodotto);
@@ -58,8 +74,8 @@ public class ProdottoController {
         }
     }//modificaProdotto
 
-    @PreAuthorize("hasAuthority('Venditore')")
-    @DeleteMapping("/delete/{id}")
+    //@PreAuthorize("hasAuthority('admin')")
+    @DeleteMapping("/admin/delete/{id}")
     public ResponseEntity eliminaProdotto(@PathVariable int id){
         try{
             prodottoService.eliminaProdotto(id);

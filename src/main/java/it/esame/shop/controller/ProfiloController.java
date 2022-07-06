@@ -40,7 +40,7 @@ public class ProfiloController {
     }//login
 
 
-    @GetMapping
+    @GetMapping("/get")
     public List<Utente> getAll(){
         return profiloService.getAllUtenti();
     }//getAll

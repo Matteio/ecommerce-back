@@ -11,9 +11,9 @@ import java.util.List;
 @Repository
 public interface ProdottoRepository extends JpaRepository<Prodotto, Integer> {
 
-    Page<Prodotto> findByNomeContaining(String nome, Pageable pageable);
+    List<Prodotto> findByNomeContaining(String nome);
     List<Prodotto> findByNome(String nome);
     //List<Prodotto> findByBarCode(String barCode);
-    //boolean existsByBarCode(String barCode);
+    boolean existsByIdprodotto(int id);
 
 }//ProdottoRepository

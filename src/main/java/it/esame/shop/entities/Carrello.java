@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -16,8 +15,8 @@ public class Carrello {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idCarrello", nullable = false)
-    private int idCarrello;
+    @Column(name= "id_carrello", nullable = false)
+    private int idcarrello;
 
     @Basic
     @Column(name="quantita",nullable = true)

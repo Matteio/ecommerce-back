@@ -19,16 +19,18 @@ public class Prodotto  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idProdotto", nullable = false)
-    private int idProdotto;
+    @Column(name="id_prodotto", nullable = false)
+    private int idprodotto;
 
     @Basic
     @Column(name="nome",nullable = true, length = 45)
     private String nome;
+
     /*@Basic
     @Column(name="barCode",nullable = true, length = 45)
     private String barCode;
      */
+
     @Basic
     @Column(name="descrizione",nullable = true, length = 45)
     private String descrizione;
@@ -38,11 +40,15 @@ public class Prodotto  {
     @Basic
     @Column(name="disponibilita",nullable = true)
     private int disponibilita;
+    @Basic
+    @Column(name="image",nullable = true, length = 70)
+    private String image;
 
    /* @Version
     @JsonIgnore
     private long version;
     */
+
     @OneToMany(targetEntity = Carrello.class, mappedBy="prodotto", cascade = CascadeType.MERGE)
     @JsonIgnore
     @ToString.Exclude

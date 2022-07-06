@@ -6,9 +6,13 @@ import it.esame.shop.support.exceptions.BarCodeAlreadyExistException;
 import it.esame.shop.support.exceptions.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.PageRequest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ProdottoService {
@@ -30,7 +34,7 @@ public class ProdottoService {
     //Dato un prodotto esistente, ne carico un altro uguale con dati differenti
     @Transactional(readOnly = false)
     public Prodotto modificaProdotto(Prodotto prodotto){
-        boolean esiste=prodottoRepository.existsById(prodotto.getIdProdotto());
+        boolean esiste=prodottoRepository.existsById(prodotto.getIdprodotto());
         if(esiste){
             return prodottoRepository.save(prodotto);
         }
@@ -46,49 +50,25 @@ public class ProdottoService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Prodotto> getFiltri(int pag,int limite,String nomeProd, Sort.Direction sort) {
-        Page<Prodotto> productPage = null;
-        if(nomeProd==null && sort==null){
-            productPage = mostraListaProdotti(pag,limite);
-        }
-        if(nomeProd!=null && sort==null ){
-            productPage = mostraProdottiByNome(pag,limite,nomeProd);
-        }
-        if(nomeProd==null && sort != null ){
-            productPage = mostraProdottoOrdinatiByPrezzo(pag,limite,sort);
-        }
-        if(nomeProd!=null && sort!=null){
-            productPage = mostraProdottoPerNomeOrdinatiByPrezzo(pag,limite,nomeProd,sort);
-        }
-        return  productPage;
+    public List<Prodotto> mostraTutti(){
+        return prodottoRepository.findAll();
     }
 
-
     @Transactional(readOnly = true)
-    public Page<Prodotto> mostraListaProdotti(int pag, int limite){
-        Pageable pageable = PageRequest.of(pag,limite);
-        return prodottoRepository.findAll(pageable);
+    public List<Prodotto> mostraListaProdotti(int pag, int limite, String sortBy){
+        Pageable paging = PageRequest.of(pag, limite, Sort.by(sortBy));
+        Page<Prodotto> pageResult=prodottoRepository.findAll(paging);
+        if(pageResult.hasContent())
+            return pageResult.getContent();
+        else
+            return new ArrayList<>();
     }//mostraListaProdotti
 
     @Transactional(readOnly = true)
-    public Page<Prodotto> mostraProdottiByNome(int pag, int limite, String nome){
-        Pageable pageable = PageRequest.of(pag,limite);
-        return prodottoRepository.findByNomeContaining(nome,pageable);
+    public List<Prodotto> mostraProdottiByNome(String nome){
+        return prodottoRepository.findByNomeContaining(nome);
     }//mostraListaProdotti
 
-    @Transactional(readOnly = true)
-    public Page<Prodotto> mostraProdottoOrdinatiByPrezzo(int pag, int limite, Sort.Direction sort){
-        Sort sort1=Sort.by(sort, "prezzo");
-        Pageable pageable=PageRequest.of(pag,limite,sort1);
-        return prodottoRepository.findAll(pageable);
-    }
-
-    @Transactional(readOnly = true)
-    public Page<Prodotto> mostraProdottoPerNomeOrdinatiByPrezzo(int pag, int limite, String nome, Sort.Direction sort){
-        Sort sort1=Sort.by(sort, "prezzo");
-        Pageable pageable=PageRequest.of(pag,limite,sort1);
-        return prodottoRepository.findByNomeContaining(nome,pageable);
-    }
 
 
 }//ProdottoService
