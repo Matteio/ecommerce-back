@@ -21,9 +21,9 @@ public class AcquistoController {
     @Autowired
     private AcquistoService acquistoService;
 
-    @PostMapping
+    @PostMapping("/crea")
     @ResponseStatus(code= HttpStatus.OK)
-    @PreAuthorize("hasAuthority('Cliente')")
+    //@PreAuthorize("hasAuthority('Cliente')")
     public ResponseEntity crea(@RequestBody Ordine ordine){
         try{
             return new ResponseEntity<>(acquistoService.aggiungiAcquisto(ordine), HttpStatus.OK);
