@@ -11,7 +11,7 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @Entity
 @Table(name="carrello")
-public class Carrello {
+public class ProdottoInAcquisto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,4 +32,4 @@ public class Carrello {
     @ToString.Exclude
     private Ordine ordine;
 
-}//Carrello
+}//ProdottoInAcquisto

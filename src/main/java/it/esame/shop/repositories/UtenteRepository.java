@@ -12,8 +12,8 @@ public interface UtenteRepository extends JpaRepository<Utente, Integer> {
     List<Utente> findByNome(String nome);
     List<Utente> findByCognome(String cognome);
     //List<Utente> findByNomeANDCognome(String nome, String cognome);
-    Utente findByIdutente(int id);
-    //Utente findByEmail(String email);
-    boolean existsByIdutente(int id);
+    Utente findByCf(String cf);
+    Utente findByEmail(String email);
+    boolean existsByCf(String cf);
 
 }//UtenteRepository

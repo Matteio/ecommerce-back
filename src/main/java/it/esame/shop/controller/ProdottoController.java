@@ -36,17 +36,26 @@ public class ProdottoController {
     }//getAll paged
 
     @GetMapping("/getByName")
-    public ResponseEntity getByNome (@RequestParam(required = false)String nome){
+    public ResponseEntity getByNome (@RequestParam(value="name", required = false)String nome){
         List<Prodotto> result=prodottoService.mostraProdottiByNome(nome);
         if(result.size()<=0)
             return new ResponseEntity<>(new ResponseMessage("Nessun risultato!"), HttpStatus.OK);
         return new ResponseEntity<>(result,HttpStatus.OK);
     }//getByNome
 
-    @GetMapping("/getAll")
+    /*@GetMapping("/getAll")
     public List<Prodotto> getAll(){
+        System.out.println("getAll");
         return prodottoService.mostraTutti();
-    }//getAll
+    }//getAll*/
+
+    @GetMapping("/getAll")
+    public @ResponseBody ResponseEntity getAll(){
+        List<Prodotto> result = prodottoService.mostraTutti();
+        return (result.size()<=0)?
+                new ResponseEntity("Nessun Risultato!", HttpStatus.OK):
+                new ResponseEntity(result, HttpStatus.OK);
+    }
 
     //@PreAuthorize("hasAuthority('admin')")
     @PostMapping("/admin/add")

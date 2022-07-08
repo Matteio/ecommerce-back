@@ -49,10 +49,10 @@ public class Prodotto  {
     private long version;
     */
 
-    @OneToMany(targetEntity = Carrello.class, mappedBy="prodotto", cascade = CascadeType.MERGE)
+    /*@OneToMany(targetEntity = ProdottoInAcquisto.class, mappedBy="prodotto", cascade = CascadeType.MERGE)
     @JsonIgnore
     @ToString.Exclude
-    private List<Carrello> carrello;
-
+    private List<ProdottoInAcquisto> prodottoInAcquisto;
+    */
 
 }//Prodotto

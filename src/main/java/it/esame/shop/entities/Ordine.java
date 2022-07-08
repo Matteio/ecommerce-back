@@ -33,6 +33,6 @@ public class Ordine  {
     private Utente utente;
 
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "ordine")
-    private List<Carrello> carrello;
+    private List<ProdottoInAcquisto> prodottoInAcquisto;
 
 }//Ordine

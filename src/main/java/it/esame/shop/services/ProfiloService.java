@@ -19,16 +19,16 @@ public class ProfiloService {
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public Utente registraUtente(Utente utente) throws MailUserAlreadyExistsException {
-        if(utenteRepository.existsByIdutente(utente.getIdutente()))
+        if(utenteRepository.existsByCf(utente.getCf()))
             throw new MailUserAlreadyExistsException();
         return utenteRepository.save(utente);
     }//registraUtente
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public Utente login(Utente utente) throws UserNotFoundException{
-        if(!utenteRepository.existsByIdutente(utente.getIdutente()))
+        if(!utenteRepository.existsByCf(utente.getCf()))
             throw new UserNotFoundException();
-        return utenteRepository.findByIdutente(utente.getIdutente());
+        return utenteRepository.findByCf(utente.getCf());
     }//login
 
     @Transactional(readOnly = true)

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -51,6 +52,11 @@ public class ProdottoService {
 
     @Transactional(readOnly = true)
     public List<Prodotto> mostraTutti(){
+        List<Prodotto> ret=prodottoRepository.findAll();
+        System.out.print("[ ");
+        for(Prodotto p: ret){
+            System.out.print(p+",");
+        }
         return prodottoRepository.findAll();
     }
 
