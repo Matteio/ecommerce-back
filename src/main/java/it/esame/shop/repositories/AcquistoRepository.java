@@ -1,19 +1,15 @@
-/*package it.esame.shop.repositories;
+package it.esame.shop.repositories;
 
 import it.esame.shop.entities.Acquisto;
-import it.esame.shop.entities.Carrello;
 import it.esame.shop.entities.Utente;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface AcquistoRepository {
-
-    List<Acquisto> findByUtente(Utente u);
-    List<Acquisto> findByDataAcquisto(Date data);
+public interface AcquistoRepository extends JpaRepository<Acquisto, Integer> {
+    List<Acquisto> findByCompratore(Utente u);
+    List<Acquisto> findByDone(boolean done);
     Acquisto findByIdacquisto(int id);
-    void deleteByIdacquisto(int id);
-
-}*/
+}

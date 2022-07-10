@@ -3,6 +3,7 @@ package it.esame.shop.controller;
 
 
 import it.esame.shop.entities.Prodotto;
+import it.esame.shop.entities.Utente;
 import it.esame.shop.services.ProdottoService;
 import it.esame.shop.support.ResponseMessage;
 import it.esame.shop.support.exceptions.ProductNotFoundException;
@@ -93,5 +94,27 @@ public class ProdottoController {
             return new ResponseEntity<>("DELETE ERROR", HttpStatus.BAD_REQUEST);
         }
     }//eliminaProdotto
+
+    @PostMapping("/compra")
+    public ResponseEntity compraProdotto(@RequestParam  Utente u,
+                                         @RequestParam String nomeProdotto,
+                                         @RequestParam int quantita){
+        try{
+            prodottoService.compraProdotto(u,nomeProdotto,quantita);
+            return new ResponseEntity(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>("Errore nel comprare il prodotto", HttpStatus.BAD_REQUEST);
+        }
+    }//compraProdotto
+
+    @PostMapping("/acquistaCart")
+    public ResponseEntity acquistaCart(String email){
+        try{
+            prodottoService.acquistaCart(email);
+            return new ResponseEntity(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity("Errore nell'acquisto",HttpStatus.BAD_REQUEST);
+        }
+    }//acquistaCart
 
 }//ProdottoController

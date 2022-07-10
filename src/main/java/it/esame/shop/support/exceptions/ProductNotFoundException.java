@@ -1,6 +1,6 @@
 package it.esame.shop.support.exceptions;
 
-public class ProductNotFoundException extends Exception{
+public class ProductNotFoundException extends RuntimeException{
 
     public ProductNotFoundException() {}
 

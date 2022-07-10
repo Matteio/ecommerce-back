@@ -1,12 +1,10 @@
 package it.esame.shop.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -14,17 +12,14 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="utente")
 public class Utente {
 
     @Id
     @Column(name= "cf", nullable = false, length=16)
     private String cf;
-
-    /*@Basic
-    @Column(name="codice",nullable = true, length = 45)
-    private String codice;*/
-
     @Basic
     @Column(name="nome", length = 45)
     private String nome;
@@ -37,17 +32,13 @@ public class Utente {
     @Basic
     @Column(name="email",nullable = true, length = 45)
     private String email;
-
     @Basic
     @Column(name="indirizzo",nullable = true, length = 45)
     private String indirizzo;
 
-    @OneToMany(mappedBy = "utente", cascade = CascadeType.MERGE)
+    @ToString.Exclude
     @JsonIgnore
-    private List<Carrello> ordini;
-
-    /*@OneToMany
-    @JsonIgnore
-    private List<ProdottoInAcquisto> prodotti;*/
+    @OneToMany(mappedBy = "compratore")
+    private List<ProdottoInAcquisto> carrello=new ArrayList<>();
 
 }//Utente

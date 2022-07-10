@@ -1,10 +1,7 @@
 package it.esame.shop.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,6 +12,8 @@ import java.util.List;
 @EqualsAndHashCode
 @Entity
 @Table(name="prodotto")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Prodotto  {
 
     @Id
@@ -23,31 +22,26 @@ public class Prodotto  {
     private int idprodotto;
 
     @Basic
-    @Column(name="nome",nullable = true, length = 45)
+    @Column(name="nome",nullable = false, length = 45, unique = true)
     private String nome;
-
-    /*@Basic
-    @Column(name="barCode",nullable = true, length = 45)
-    private String barCode;
-     */
 
     @Basic
     @Column(name="descrizione",nullable = true, length = 2000)
     private String descrizione;
     @Basic
-    @Column(name="prezzo",nullable = true)
+    @Column(name="prezzo",nullable = false)
     private Double prezzo;
     @Basic
-    @Column(name="disponibilita",nullable = true)
+    @Column(name="disponibilita",nullable = false)
     private int disponibilita;
     @Basic
     @Column(name="image",nullable = true, length = 70)
     private String image;
 
-   /* @Version
+    /*@Version
     @JsonIgnore
-    private long version;
-    */
+    @Column(name="version", nullable = false)
+    private long version;*/
 
     /*@OneToMany(targetEntity = ProdottoInAcquisto.class, mappedBy="prodotto", cascade = CascadeType.MERGE)
     @JsonIgnore

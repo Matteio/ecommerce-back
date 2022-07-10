@@ -15,5 +15,6 @@ public interface UtenteRepository extends JpaRepository<Utente, Integer> {
     Utente findByCf(String cf);
     Utente findByEmail(String email);
     boolean existsByCf(String cf);
+    boolean existsByEmail(String email);
 
 }//UtenteRepository

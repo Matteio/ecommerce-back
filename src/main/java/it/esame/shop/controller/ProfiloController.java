@@ -45,4 +45,44 @@ public class ProfiloController {
         return profiloService.getAllUtenti();
     }//getAll
 
+    @PostMapping("/addToCart")
+    public ResponseEntity addToCart(@RequestParam String email,
+                                    @RequestParam String nomeProdotto,
+                                    @RequestParam String quantita){
+        try{
+            return new ResponseEntity(profiloService.addToCart(email,nomeProdotto,quantita),HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity("Errore nell'aggiunta al carrello",HttpStatus.BAD_REQUEST);
+        }
+    }//addToCart
+
+    @PostMapping("/setQuantityToCart")
+    public ResponseEntity setQuantityToCart(@RequestParam String email,
+                                            @RequestParam String nomeProdotto,
+                                            @RequestParam String quantita){
+        try{
+            return new ResponseEntity(profiloService.setQuantityToCart(email, nomeProdotto, quantita),HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity("Errore nel settare la quantita nel carrello",HttpStatus.BAD_REQUEST);
+        }
+    }//setQuantityToCart
+
+    @PostMapping("/removeFromCart")
+    public ResponseEntity removeFromCart(String email,String nomeProd){
+        try{
+            return new ResponseEntity(profiloService.removeFromCart(email, nomeProd),HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity("Errore nella rimozione dal carrello",HttpStatus.BAD_REQUEST);
+        }
+    }//removeFromCart
+
+    @GetMapping
+    public ResponseEntity getUserCart(String email){
+        try{
+            return new ResponseEntity(profiloService.getUserCart(email),HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity("Errore nella restituzione del carrello",HttpStatus.BAD_REQUEST);
+        }
+    }//getUserCart
+
 }//ProfiloController

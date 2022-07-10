@@ -12,7 +12,7 @@ import java.util.List;
 public interface ProdottoRepository extends JpaRepository<Prodotto, Integer> {
 
     List<Prodotto> findByNomeContaining(String nome);
-    List<Prodotto> findByNome(String nome);
+    Prodotto findByNome(String nome);
 
     //List<Prodotto> findByBarCode(String barCode);
     boolean existsByIdprodotto(int id);

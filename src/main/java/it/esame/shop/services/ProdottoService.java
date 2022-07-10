@@ -1,9 +1,14 @@
 package it.esame.shop.services;
 
+import it.esame.shop.entities.Acquisto;
 import it.esame.shop.entities.Prodotto;
+import it.esame.shop.entities.ProdottoInAcquisto;
+import it.esame.shop.entities.Utente;
+import it.esame.shop.repositories.AcquistoRepository;
+import it.esame.shop.repositories.ProdottoInAcquistoRepository;
 import it.esame.shop.repositories.ProdottoRepository;
-import it.esame.shop.support.exceptions.BarCodeAlreadyExistException;
-import it.esame.shop.support.exceptions.ProductNotFoundException;
+import it.esame.shop.repositories.UtenteRepository;
+import it.esame.shop.support.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.security.core.parameters.P;
@@ -19,6 +24,12 @@ import java.util.List;
 public class ProdottoService {
     @Autowired
     private ProdottoRepository prodottoRepository;
+    @Autowired
+    private UtenteRepository utenteRepository;
+    @Autowired
+    private AcquistoRepository acquistoRepository;
+    @Autowired
+    private ProdottoInAcquistoRepository prodottoInAcquistoRepository;
 
 
     @Transactional(readOnly = false)
@@ -75,6 +86,34 @@ public class ProdottoService {
         return prodottoRepository.findByNomeContaining(nome);
     }//mostraListaProdotti
 
+    @Transactional()
+    public void compraProdotto(Utente utente, String nomeProd,int quantita)throws RuntimeException{
+        //int quantita=Integer.parseInt(qta);
+        Prodotto p=prodottoRepository.findByNome(nomeProd);
+        if(p==null)
+            throw new ProductNotFoundException();
+        int newQta=p.getDisponibilita()-quantita;
+        if(newQta<0)
+            throw new QuantityProductUnavailableException();
+        Acquisto acquisto=new Acquisto(null,null,utente,p,quantita,p.getPrezzo(),false);
+        acquistoRepository.save(acquisto);
+        p.setDisponibilita(newQta);
+        ProdottoInAcquisto temp=prodottoInAcquistoRepository.findByCompratoreAndProdotto(utente,p);
+        prodottoInAcquistoRepository.delete(temp);
+        prodottoRepository.flush();
+    }
+
+    @Transactional()
+    public void acquistaCart(String email){
+        Utente utente=utenteRepository.findByEmail(email);
+        if(utente==null)
+            throw new UserNotFoundException();
+        if(utente.getCarrello().size()==0)
+            throw new CartIsEmptyException();
+        for(ProdottoInAcquisto p: utente.getCarrello()){
+            compraProdotto(utente,p.getProdotto().getNome(),p.getQuantita());
+        }
+    }
 
 
 }//ProdottoService
