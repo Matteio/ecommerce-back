@@ -95,7 +95,7 @@ public class ProdottoService {
         int newQta=p.getDisponibilita()-quantita;
         if(newQta<0)
             throw new QuantityProductUnavailableException();
-        Acquisto acquisto=new Acquisto(null,null,utente,p,quantita,p.getPrezzo(),false);
+        Acquisto acquisto=new Acquisto(null,null,utente,p,quantita,false);
         acquistoRepository.save(acquisto);
         p.setDisponibilita(newQta);
         ProdottoInAcquisto temp=prodottoInAcquistoRepository.findByCompratoreAndProdotto(utente,p);

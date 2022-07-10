@@ -68,15 +68,15 @@ public class ProfiloController {
     }//setQuantityToCart
 
     @PostMapping("/removeFromCart")
-    public ResponseEntity removeFromCart(String email,String nomeProd){
+    public ResponseEntity removeFromCart(String email,String nomeProdotto){
         try{
-            return new ResponseEntity(profiloService.removeFromCart(email, nomeProd),HttpStatus.OK);
+            return new ResponseEntity(profiloService.removeFromCart(email, nomeProdotto),HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity("Errore nella rimozione dal carrello",HttpStatus.BAD_REQUEST);
         }
     }//removeFromCart
 
-    @GetMapping
+    @GetMapping("/getCart")
     public ResponseEntity getUserCart(String email){
         try{
             return new ResponseEntity(profiloService.getUserCart(email),HttpStatus.OK);

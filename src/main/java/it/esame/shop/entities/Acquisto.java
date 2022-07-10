@@ -38,8 +38,8 @@ public class Acquisto {
     @Column(name="quantita")
     private int quantity;
 
-    @Column(name="prezzo_fissato")
-    private double prezzo_fissato;
+    /*@Column(name="prezzo_fissato")
+    private double prezzo_fissato;*/
 
     @Column(name="done")
     private boolean done;
