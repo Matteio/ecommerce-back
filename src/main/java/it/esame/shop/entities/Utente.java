@@ -1,11 +1,13 @@
 package it.esame.shop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -40,9 +42,12 @@ public class Utente {
     @Column(name="indirizzo",nullable = true, length = 45)
     private String indirizzo;
 
-    /*@OneToMany(mappedBy = "utente", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "utente", cascade = CascadeType.MERGE)
     @JsonIgnore
-    private List<Ordine> ordini;
-    */
+    private List<Carrello> ordini;
+
+    /*@OneToMany
+    @JsonIgnore
+    private List<ProdottoInAcquisto> prodotti;*/
 
 }//Utente

@@ -50,7 +50,7 @@ public class ProdottoController {
     }//getAll*/
 
     @GetMapping("/getAll")
-    public @ResponseBody ResponseEntity getAll(){
+    public ResponseEntity getAll(){
         List<Prodotto> result = prodottoService.mostraTutti();
         return (result.size()<=0)?
                 new ResponseEntity("Nessun Risultato!", HttpStatus.OK):

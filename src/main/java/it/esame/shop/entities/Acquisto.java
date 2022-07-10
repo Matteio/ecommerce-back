@@ -1,5 +1,4 @@
-package it.esame.shop.entities;
-
+/*package it.esame.shop.entities;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,20 +7,19 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
 @Entity
-@Table(name="ordine")
-public class Ordine  {
+@Table(name= "acquisto")
+public class Acquisto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "id_ordine", nullable = false)
-    private int idordine;
+    @Column(name= "id_acquisto", nullable = false)
+    private int idacquisto;
 
     @Basic
     @CreationTimestamp
@@ -32,7 +30,4 @@ public class Ordine  {
     @JoinColumn(name = "utente")
     private Utente utente;
 
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "ordine")
-    private List<ProdottoInAcquisto> prodottoInAcquisto;
-
-}//Ordine
+}//Carrello*/

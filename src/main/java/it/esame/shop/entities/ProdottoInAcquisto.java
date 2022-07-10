@@ -2,21 +2,23 @@ package it.esame.shop.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
 @Entity
-@Table(name="carrello")
+@Table(name= "prodottoCarrello")
 public class ProdottoInAcquisto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "id_carrello", nullable = false)
-    private int idcarrello;
+    @Column(name= "id_prodcarrello", nullable = false)
+    private int idprodcarrello;
 
     @Basic
     @Column(name="quantita",nullable = true)
@@ -28,8 +30,13 @@ public class ProdottoInAcquisto {
 
     @ManyToOne
     @JoinColumn(name="ordine")
-    @JsonIgnore
+    //@JsonIgnore
     @ToString.Exclude
-    private Ordine ordine;
+    private Carrello ordine;
+
+    @Basic
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date data;
 
 }//ProdottoInAcquisto

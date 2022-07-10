@@ -32,7 +32,7 @@ public class Prodotto  {
      */
 
     @Basic
-    @Column(name="descrizione",nullable = true, length = 45)
+    @Column(name="descrizione",nullable = true, length = 2000)
     private String descrizione;
     @Basic
     @Column(name="prezzo",nullable = true)
