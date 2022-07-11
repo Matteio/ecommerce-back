@@ -17,7 +17,7 @@ import java.util.Date;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name= "prodottoCarrello")
+@Table(name= "prodottocarrello")
 public class ProdottoInAcquisto {
 
     @Id

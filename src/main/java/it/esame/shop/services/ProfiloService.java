@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -54,7 +55,13 @@ public class ProfiloService {
 
     public List<Acquisto> getMyOrdini(String email){
         Utente utente=utenteRepository.findByEmail(email);
-        return acquistoRepository.findByCompratore(utente);
+        List<Acquisto> ret=acquistoRepository.findByCompratore(utente);
+        System.out.println("[");
+        for(Acquisto a: ret){
+            System.out.println(a+",");
+        }
+        System.out.println("]");
+        return ret;
     }//getMyOrdini
 
     @Transactional()
@@ -84,6 +91,7 @@ public class ProfiloService {
     }//addToCart
 
     public List<ProdottoInAcquisto> setQuantityToCart(String email, String nomeProdotto, String quantita){
+        System.out.println("SetQuantityToCart");
         int qta=Integer.parseInt(quantita);
         Prodotto prod=prodottoRepository.findByNome(nomeProdotto);
         if(prod==null)
@@ -104,16 +112,28 @@ public class ProfiloService {
                 throw new QuantityProductUnavailableException();
             pia.setQuantita(qta);
         }
+        /*System.out.println("[");
+        for(ProdottoInAcquisto p: utente.getCarrello()){
+            System.out.println(p.toString()+",");
+        }
+        System.out.println("]");*/
         return utente.getCarrello();
     }//setQuantityToCart
 
     public List<ProdottoInAcquisto> removeFromCart(String email, String nomeProdotto){
+        System.out.println("RemoveFromCart");
         Utente utente=utenteRepository.findByEmail(email);
         Prodotto prodotto=prodottoRepository.findByNome(nomeProdotto);
         ProdottoInAcquisto pia=prodottoInAcquistoRepository.findByCompratoreAndProdotto(utente,prodotto);
         if(pia==null)
             throw new ProductNotFoundException();
         prodottoInAcquistoRepository.delete(pia);
+        utente.getCarrello().remove(pia);
+        System.out.println("[");
+        for(ProdottoInAcquisto p: utente.getCarrello()){
+            System.out.println(p.toString()+",");
+        }
+        System.out.println("]");
         return utente.getCarrello();
     }//removeFromCart
 
@@ -121,6 +141,11 @@ public class ProfiloService {
         Utente utente=utenteRepository.findByEmail(email);
         List<ProdottoInAcquisto> carrello=utente.getCarrello();
         //Collections.sort(carrello);
+        /*System.out.println("[");
+        for(ProdottoInAcquisto p: carrello){
+            System.out.println(p.toString()+",");
+        }
+        System.out.println("]");*/
         return carrello;
     }//getUserCart
 

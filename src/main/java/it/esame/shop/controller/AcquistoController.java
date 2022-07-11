@@ -21,8 +21,9 @@ public class AcquistoController {
     AcquistoService acquistoService;
 
     @GetMapping("/getAcquisti")
-    public ResponseEntity getAcquisti(String email){
+    public ResponseEntity getAcquisti(@RequestParam String email){
         try{
+            System.out.println("GETACQUISTI");
             return new ResponseEntity(profiloService.getMyOrdini(email),HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity("Errore", HttpStatus.BAD_REQUEST);

@@ -11,13 +11,16 @@ import it.esame.shop.repositories.UtenteRepository;
 import it.esame.shop.support.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Date;
+//import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -95,7 +98,10 @@ public class ProdottoService {
         int newQta=p.getDisponibilita()-quantita;
         if(newQta<0)
             throw new QuantityProductUnavailableException();
-        Acquisto acquisto=new Acquisto(null,null,utente,p,quantita,false);
+        //Date myDate = Date.from(Instant.now());
+        //SimpleDateFormat formatter = new SimpleDateFormat("dd MM yyyy");
+        //String formattedDate = formatter.format(myDate);
+        Acquisto acquisto=new Acquisto(null, null ,utente,p,quantita,false);
         acquistoRepository.save(acquisto);
         p.setDisponibilita(newQta);
         ProdottoInAcquisto temp=prodottoInAcquistoRepository.findByCompratoreAndProdotto(utente,p);
@@ -104,7 +110,8 @@ public class ProdottoService {
     }
 
     @Transactional()
-    public void acquistaCart(String email){
+    public void acquistaCart(@RequestParam String email){
+        System.out.println("AcquistaCart");
         Utente utente=utenteRepository.findByEmail(email);
         if(utente==null)
             throw new UserNotFoundException();

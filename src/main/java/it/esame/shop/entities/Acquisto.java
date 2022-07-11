@@ -1,12 +1,14 @@
 package it.esame.shop.entities;
 
 import lombok.*;
+import org.apache.james.mime4j.field.datetime.DateTime;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
+//import java.util.List;
 
+@Data
 @Getter
 @Setter
 @ToString
@@ -24,7 +26,8 @@ public class Acquisto {
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "dataAcquisto")
+    //@Basic
+    @Column(name = "data_acquisto")
     private Date dataAcquisto;
 
     @ManyToOne()

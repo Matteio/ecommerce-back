@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.List;
 
 @RestController
@@ -50,8 +51,10 @@ public class ProfiloController {
                                     @RequestParam String nomeProdotto,
                                     @RequestParam String quantita){
         try{
+            System.out.println("addToCart");
             return new ResponseEntity(profiloService.addToCart(email,nomeProdotto,quantita),HttpStatus.OK);
         }catch (Exception e){
+            System.out.println("Email: "+email);
             return new ResponseEntity("Errore nell'aggiunta al carrello",HttpStatus.BAD_REQUEST);
         }
     }//addToCart
@@ -68,8 +71,9 @@ public class ProfiloController {
     }//setQuantityToCart
 
     @PostMapping("/removeFromCart")
-    public ResponseEntity removeFromCart(String email,String nomeProdotto){
+    public ResponseEntity removeFromCart(@RequestParam String email,@RequestParam String nomeProdotto){
         try{
+            System.out.println("REMOVEFROMCART");
             return new ResponseEntity(profiloService.removeFromCart(email, nomeProdotto),HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity("Errore nella rimozione dal carrello",HttpStatus.BAD_REQUEST);
@@ -79,6 +83,7 @@ public class ProfiloController {
     @GetMapping("/getCart")
     public ResponseEntity getUserCart(String email){
         try{
+            System.out.println("getUserCart");
             return new ResponseEntity(profiloService.getUserCart(email),HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity("Errore nella restituzione del carrello",HttpStatus.BAD_REQUEST);
